@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pareja del Año - Flores y Letra</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Fondo multicolor animado */
+  body {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab, #f7b733, #fc4a1a, #a8edea, #fed6e3);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    position: relative;
+    padding-bottom: 200px;
+  }
+
+  @keyframes gradientBG {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Capa de flores */
+  #flores-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .flor {
+    position: absolute;
+    font-size: 40px;
+    animation: flotar 6s ease-in-out infinite;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25));
+    user-select: none;
+  }
+
+  .flor.azul     { color: #1e88e5; text-shadow: 0 0 10px rgba(30,136,229,0.6); }
+  .flor.roja     { color: #e53935; text-shadow: 0 0 10px rgba(229,57,53,0.6); }
+  .flor.amarilla { color: #fdd835; text-shadow: 0 0 10px rgba(253,216,53,0.7); }
+
+  @keyframes flotar {
+    0%   { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+    25%  { transform: translate(30px, -40px) rotate(90deg) scale(1.1); }
+    50%  { transform: translate(-20px, -80px) rotate(180deg) scale(0.95); opacity: 0.9; }
+    75%  { transform: translate(40px, -120px) rotate(270deg) scale(1.05); }
+    100% { transform: translate(0, -200px) rotate(360deg) scale(0.8); opacity: 0; }
+  }
+
+  /* Contenido principal */
+  .contenido {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 20px 20px;
+  }
+
+  h1 {
+    color: white;
+    font-size: 2.2rem;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    margin-bottom: 8px;
+    text-align: center;
+  }
+
+  .subtitulo {
+    color: rgba(255,255,255,0.9);
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+    text-align: center;
+  }
+
+  /* Botón */
+  #boton-flores {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+    margin-bottom: 25px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  #boton-flores:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  }
+
+  #boton-flores:active { transform: translateY(0) scale(0.98); }
+
+  /* Reproductor de vídeo */
+  .video-wrapper {
+    width: 100%;
+    max-width: 720px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    background: #000;
+    margin-bottom: 20px;
+  }
+
+  .video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+  }
+
+  .video-container iframe,
+  .video-container #fallback-video {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  #fallback-video {
+    display: none;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    color: white;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    text-align: center;
+  }
+
+  #fallback-video h3 {
+    margin-bottom: 15px;
+    color: #ff6b6b;
+    font-size: 1.3rem;
+  }
+
+  #fallback-video p {
+    margin-bottom: 20px;
+    opacity: 0.9;
+    line-height: 1.5;
+  }
+
+  #fallback-video a {
+    display: inline-block;
+    background: #ff0000;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-bottom: 15px;
+    transition: transform 0.2s;
+  }
+
+  #fallback-video a:hover { transform: scale(1.05); }
+
+  #fallback-video .cronometro-info {
+    font-size: 0.95rem;
+    opacity: 0.8;
+    margin-top: 10px;
+  }
+
+  /* Controles de sincronización */
+  .controles-sincro {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 15px;
+    align-items: center;
+  }
+
+  .controles-sincro button {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    color: white;
+    border: 2px solid rgba(255,255,255,0.4);
+    padding: 8px 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+  }
+
+  .controles-sincro button:hover {
+    background: rgba(255,255,255,0.35);
+    transform: translateY(-1px);
+  }
+
+  .estado-sincro {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    font-size: 0.9rem;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  }
+
+  .punto-estado {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #9e9e9e;
+    transition: all 0.3s;
+  }
+
+  .punto-estado.activo {
+    background: #4caf50;
+    box-shadow: 0 0 10px #4caf50;
+    animation: parpadear 1s infinite;
+  }
+
+  .punto-estado.espera { background: #ff9800; }
+  .punto-estado.error  { background: #f44336; }
+
+  @keyframes parpadear {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.4; }
+  }
+
+  .ajuste-valor {
+    color: white;
+    font-size: 0.85rem;
+    background: rgba(0,0,0,0.3);
+    padding: 4px 10px;
+    border-radius: 12px;
+    min-width: 70px;
+    text-align: center;
+  }
+
+  /* Letra en la parte inferior - con borde azul */
+  .letra-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: linear-gradient(to top, rgba(10, 20, 40, 0.95), rgba(10, 20, 40, 0.85));
+    border-top: 4px solid #1565c0;
+    border-left: 3px solid #1565c0;
+    border-right: 3px solid #1565c0;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    padding: 18px 25px 22px;
+    box-shadow: 0 -8px 30px rgba(21, 101, 192, 0.4), 0 -4px 15px rgba(0,0,0,0.3);
+    backdrop-filter: blur(12px);
+    max-height: 180px;
+    overflow: hidden;
+  }
+
+  .letra-container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #64b5f6, #1565c0, #64b5f6, transparent);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+
+  .letra-linea {
+    color: white;
+    text-align: center;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    transition: all 0.4s ease;
+    min-height: 1.8em;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+  }
+
+  .letra-linea.vacia {
+    opacity: 0.5;
+    font-style: italic;
+    font-size: 1rem;
+  }
+
+  .letra-linea.entrando {
+    animation: entradaLetra 0.5s ease-out;
+  }
+
+  @keyframes entradaLetra {
+    from { opacity: 0; transform: translateY(15px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .tiempo-actual {
+    position: absolute;
+    top: 8px;
+    right: 20px;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.75rem;
+    font-family: monospace;
+  }
+
+  /* Mensaje de error general */
+  #mensaje-error {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(244, 67, 54, 0.95);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    max-width: 90%;
+    text-align: center;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    h1 { font-size: 1.6rem; }
+    .subtitulo { font-size: 0.95rem; }
+    .letra-linea { font-size: 1rem; }
+    .letra-container { padding: 14px 15px 18px; max-height: 160px; }
+    #boton-flores { padding: 12px 24px; font-size: 1rem; }
+    body { padding-bottom: 170px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="mensaje-error"></div>
+
+<!-- Capa de flores -->
+<div id="flores-container"></div>
+
+<!-- Contenido principal -->
+<div class="contenido">
+  <h1>🌸 Pareja del Año 🌸</h1>
+  <p class="subtitulo">Sebastián Yatra & Myke Towers</p>
+
+  <button id="boton-flores" onclick="generarFlores()">✨ Generar Flores ✨</button>
+
+  <div class="video-wrapper">
+    <div class="video-container">
+      <div id="player"></div>
+      <div id="fallback-video">
+        <h3>⚠️ Vídeo no disponible para incrustar</h3>
+        <p>El vídeo oficial tiene restricciones de derechos de autor.<br>Abre el vídeo en YouTube y usa el cronómetro para sincronizar la letra manualmente.</p>
+        <a href="https://www.youtube.com/watch?v=SRm2Ch4oFWs" target="_blank" rel="noopener">▶ Abrir en YouTube</a>
+        <button onclick="iniciarCronometroManual()" style="background:#4caf50;color:white;border:none;padding:10px 20px;border-radius:20px;cursor:pointer;font-weight:600;">⏱ Iniciar sincronización manual</button>
+        <p class="cronometro-info">La letra se actualizará automáticamente según el tiempo transcurrido</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="controles-sincro">
+    <div class="estado-sincro">
+      <span class="punto-estado" id="punto-estado"></span>
+      <span id="texto-estado">Cargando...</span>
+    </div>
+    <button onclick="ajustarTiempo(-0.5)" title="Retrasar letra 0.5s">⏪ -0.5s</button>
+    <span class="ajuste-valor" id="ajuste-display">±0.0s</span>
+    <button onclick="ajustarTiempo(0.5)" title="Adelantar letra 0.5s">+0.5s ⏩</button>
+    <button onclick="sincronizarAhora()">🔄 Sincronizar</button>
+    <button onclick="resetAjuste()">↺ Reset</button>
+  </div>
+</div>
+
+<!-- Letra sincronizada en parte inferior -->
+<div class="letra-container">
+  <div class="tiempo-actual" id="tiempo-display">0:00</div>
+  <div class="letra-linea vacia" id="letra-linea">La letra aparecerá aquí cuando empiece la canción...</div>
+</div>
+
+<script>
+// ============================================================
+// GESTIÓN DE ERRORES GLOBAL
+// ============================================================
+window.onerror = function(msg, url, linea, col, error) {
+  mostrarError('Error en la página: ' + msg + ' (línea ' + linea + ')');
+  console.error('ERROR GLOBAL:', msg, 'en', url, 'línea', linea);
+  return false;
+};
+
+window.addEventListener('unhandledrejection', function(e) {
+  console.error('PROMESA RECHAZADA:', e.reason);
+});
+
+function mostrarError(texto) {
+  try {
+    var div = document.getElementById('mensaje-error');
+    if (div) {
+      div.textContent = texto;
+      div.style.display = 'block';
+      setTimeout(function() { div.style.display = 'none'; }, 5000);
+    }
+  } catch(e) { console.error(e); }
+}
+
+// ============================================================
+// FLORES
+// ============================================================
+var ajusteTiempo = 0;
+var colores = ['azul', 'roja', 'amarilla'];
+var simbolosFlor = ['🌸', '✿', '❀', '✾', '❁', '🌺'];
+
+function generarFlores() {
+  try {
+    var container = document.getElementById('flores-container');
+    if (!container) return;
+
+    var cantidad = 12;
+    for (var i = 0; i < cantidad; i++) {
+      setTimeout(crearFlor, i * 80);
+    }
+  } catch (e) {
+    console.error('Error generando flores:', e);
+    mostrarError('Error al generar flores');
+  }
+}
+
+function crearFlor() {
+  try {
+    var container = document.getElementById('flores-container');
+    if (!container) return;
+
+    var flor = document.createElement('div');
+    flor.className = 'flor ' + colores[Math.floor(Math.random() * colores.length)];
+    flor.textContent = simbolosFlor[Math.floor(Math.random() * simbolosFlor.length)];
+
+    // Posición aleatoria en toda la pantalla
+    var x = Math.random() * (window.innerWidth - 50);
+    var y = window.innerHeight + Math.random() * 100;
+    flor.style.left = x + 'px';
+    flor.style.top = y + 'px';
+
+    // Tamaño y duración aleatorios
+    var tamano = 25 + Math.random() * 35;
+    flor.style.fontSize = tamano + 'px';
+    var duracion = 4 + Math.random() * 5;
+    flor.style.animationDuration = duracion + 's';
+
+    container.appendChild(flor);
+
+    // Eliminar después de la animación
+    setTimeout(function() {
+      if (flor.parentNode) flor.parentNode.removeChild(flor);
+    }, duracion * 1000 + 500);
+  } catch (e) {
+    console.error('Error creando flor:', e);
+  }
+}
+
+// Generar algunas flores iniciales
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    for (var i = 0; i < 6; i++) {
+      setTimeout(crearFlor, i * 200);
+    }
+  }, 500);
+});
+
+// ============================================================
+// LETRA SINCRONIZADA - "Pareja del Año"
+// ============================================================
+var letra = [
+  { tiempo: 1.90,  texto: "🎵 Sebastián Yatra, Myke Towers 🎵" },
+  { tiempo: 5.50,  texto: "Pareja del año" },
+  { tiempo: 8.00,  texto: "Yatra, Yatra" },
+  { tiempo: 11.00, texto: "Myke Towers, baby" },
+  { tiempo: 14.50, texto: "Oye, mami" },
+  { tiempo: 17.00, texto: "Dime qué es lo que pasa" },
+  { tiempo: 20.00, texto: "Que desde que te vi me tienes mal" },
+  { tiempo: 24.00, texto: "Yo no sé si es tu cara" },
+  { tiempo: 27.00, texto: "O si es tu forma de mirar" },
+  { tiempo: 30.50, texto: "Pero contigo quiero estar" },
+  { tiempo: 34.00, texto: "Solo tú me haces sentir así" },
+  { tiempo: 38.00, texto: "Y yo por ti haría lo que sea" },
+  { tiempo: 41.50, texto: "Solo dime qué hay que hacer" },
+  { tiempo: 45.00, texto: "Pa' que seas mía y yo sea tuyo" },
+  { tiempo: 48.50, texto: "Y de nadie más, bebé" },
+  { tiempo: 52.00, texto: "Porque tú eres la que me pone a volar" },
+  { tiempo: 55.50, texto: "La que me hace soñar" },
+  { tiempo: 59.00, texto: "La que me hace sentir que el tiempo se para" },
+  { tiempo: 63.00, texto: "Cuando estamos juntos, nada importa ya" },
+  { tiempo: 67.00, texto: "Tú eres mi pareja del año" },
+  { tiempo: 70.50, texto: "La que siempre está a mi lado" },
+  { tiempo: 74.00, texto: "La que me da su amor sin condiciones" },
+  { tiempo: 78.00, texto: "Mi reina, mi todo, mi pasión" },
+  { tiempo: 82.00, texto: "Tú eres mi pareja del año" },
+  { tiempo: 85.50, texto: "Contigo todo es más bonito" },
+  { tiempo: 89.00, texto: "Eres mi luz en el camino" },
+  { tiempo: 93.00, texto: "Mi amor verdadero, mi destino" },
+  { tiempo: 97.00, texto: "Yeah, yeah" },
+  { tiempo: 99.00, texto: "Myke Towers" },
+  { tiempo: 101.00, texto: "Mami, tú llegaste y cambiaste mi vida" },
+  { tiempo: 104.50, texto: "Desde que te conozco, todo es más bonito" },
+  { tiempo: 108.00, texto: "Ya no me interesan las otras, solo tú" },
+  { tiempo: 111.50, texto: "Eres la única que me hace sentir así" },
+  { tiempo: 115.00, texto: "Tu sonrisa es mi motivación" },
+  { tiempo: 118.50, texto: "Tus ojos son mi fascinación" },
+  { tiempo: 122.00, texto: "Contigo quiero despertar cada mañana" },
+  { tiempo: 125.50, texto: "Y que nunca se acabe esta historia" },
+  { tiempo: 129.00, texto: "Porque tú eres la que me pone a volar" },
+  { tiempo: 132.50, texto: "La que me hace soñar" },
+  { tiempo: 136.00, texto: "La que me hace sentir que el tiempo se para" },
+  { tiempo: 140.00, texto: "Cuando estamos juntos, nada importa ya" },
+  { tiempo: 144.00, texto: "Tú eres mi pareja del año" },
+  { tiempo: 147.50, texto: "La que siempre está a mi lado" },
+  { tiempo: 151.00, texto: "La que me da su amor sin condiciones" },
+  { tiempo: 155.00, texto: "Mi reina, mi todo, mi pasión" },
+  { tiempo: 159.00, texto: "Tú eres mi pareja del año" },
+  { tiempo: 162.50, texto: "Contigo todo es más bonito" },
+  { tiempo: 166.00, texto: "Eres mi luz en el camino" },
+  { tiempo: 170.00, texto: "Mi amor verdadero, mi destino" },
+  { tiempo: 174.00, texto: "Y aunque pase el tiempo" },
+  { tiempo: 177.00, texto: "Mi amor por ti no cambia" },
+  { tiempo: 180.50, texto: "Siempre serás mi reina" },
+  { tiempo: 184.00, texto: "Mi todo, mi vida entera" },
+  { tiempo: 188.00, texto: "Tú eres mi pareja del año" },
+  { tiempo: 192.00, texto: "🎵 🌸 🎵" }
+];
+
+var lineaActual = -1;
+var player = null;
+var modoManual = false;
+var inicioManual = 0;
+var intervaloSincro = null;
+
+// ============================================================
+// SINCRONIZACIÓN DE LETRA
+// ============================================================
+function actualizarLetra(tiempo) {
+  try {
+    var tiempoAjustado = tiempo + ajusteTiempo;
+
+    // Actualizar display de tiempo
+    var mins = Math.floor(tiempoAjustado / 60);
+    var segs = Math.floor(tiempoAjustado % 60);
+    var tiempoDisplay = document.getElementById('tiempo-display');
+    if (tiempoDisplay) {
+      tiempoDisplay.textContent = mins + ':' + (segs < 10 ? '0' : '') + segs;
+    }
+
+    // Encontrar línea actual
+    var nuevaLinea = -1;
+    for (var i = 0; i < letra.length; i++) {
+      if (tiempoAjustado >= letra[i].tiempo) {
+        nuevaLinea = i;
+      } else {
+        break;
+      }
+    }
+
+    if (nuevaLinea !== lineaActual) {
+      lineaActual = nuevaLinea;
+      var divLetra = document.getElementById('letra-linea');
+      if (divLetra) {
+        if (lineaActual >= 0 && letra[lineaActual]) {
+          divLetra.textContent = letra[lineaActual].texto;
+          divLetra.classList.remove('vacia');
+          divLetra.classList.remove('entrando');
+          // Forzar reflow para reiniciar animación
+          void divLetra.offsetWidth;
+          divLetra.classList.add('entrando');
+        } else {
+          divLetra.textContent = 'La letra aparecerá aquí cuando empiece la canción...';
+          divLetra.classList.add('vacia');
+        }
+      }
+    }
+  } catch (e) {
+    console.error('Error actualizando letra:', e);
+  }
+}
+
+function ajustarTiempo(delta) {
+  ajusteTiempo += delta;
+  var display = document.getElementById('ajuste-display');
+  if (display) {
+    var signo = ajusteTiempo >= 0 ? '+' : '';
+    display.textContent = signo + ajusteTiempo.toFixed(1) + 's';
+  }
+  sincronizarAhora();
+}
+
+function resetAjuste() {
+  ajusteTiempo = 0;
+  var display = document.getElementById('ajuste-display');
+  if (display) display.textContent = '±0.0s';
+  sincronizarAhora();
+}
+
+function sincronizarAhora() {
+  try {
+    if (modoManual) {
+      var ahora = (Date.now() - inicioManual) / 1000;
+      actualizarLetra(ahora);
+    } else if (player && typeof player.getCurrentTime === 'function') {
+      var t = player.getCurrentTime();
+      actualizarLetra(t);
+    }
+  } catch (e) {
+    console.error('Error sincronizando:', e);
+  }
+}
+
+function cambiarEstado(estado, texto) {
+  try {
+    var punto = document.getElementById('punto-estado');
+    var txt = document.getElementById('texto-estado');
+    if (punto) {
+      punto.className = 'punto-estado ' + estado;
+    }
+    if (txt) txt.textContent = texto;
+  } catch (e) { console.error(e); }
+}
+
+// ============================================================
+// CRONÓMETRO MANUAL
+// ============================================================
+function iniciarCronometroManual() {
+  try {
+    modoManual = true;
+    inicioManual = Date.now();
+    lineaActual = -1;
+    cambiarEstado('activo', 'Sincronización manual activa');
+
+    if (intervaloSincro) clearInterval(intervaloSincro);
+    intervaloSincro = setInterval(function() {
+      var transcurrido = (Date.now() - inicioManual) / 1000;
+      actualizarLetra(transcurrido);
+      if (transcurrido > 210) {
+        clearInterval(intervaloSincro);
+      }
+    }, 100);
+  } catch (e) {
+    console.error('Error cronómetro:', e);
+    mostrarError('Error iniciando sincronización');
+  }
+}
+
+// ============================================================
+// YOUTUBE IFRAME API
+// ============================================================
+var intentosFallo = 0;
+
+function onYouTubeIframeAPIReady() {
+  try {
+    console.log('API de YouTube lista');
+    cambiarEstado('espera', 'Cargando reproductor...');
+
+    player = new YT.Player('player', {
+      height: '100%',
+      width: '100%',
+      videoId: 'SRm2Ch4oFWs',
+      playerVars: {
+        'autoplay': 0,
+        'controls': 1,
+        'rel': 0,
+        'modestbranding': 1,
+        'origin': window.location.origin || '*'
+      },
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange,
+        'onError': onPlayerError
+      }
+    });
+  } catch (e) {
+    console.error('Error creando reproductor:', e);
+    mostrarFallback();
+  }
+}
+
+function onPlayerReady(event) {
+  try {
+    console.log('Reproductor listo');
+    cambiarEstado('espera', 'Reproductor listo - Dale play');
+
+    if (intervaloSincro) clearInterval(intervaloSincro);
+    intervaloSincro = setInterval(function() {
+      try {
+        if (player && player.getPlayerState && player.getPlayerState() === YT.PlayerState.PLAYING) {
+          var t = player.getCurrentTime();
+          actualizarLetra(t);
+        }
+      } catch (e) { /* silenciar errores frecuentes */ }
+    }, 150);
+  } catch (e) {
+    console.error('Error en onPlayerReady:', e);
+  }
+}
+
+function onPlayerStateChange(event) {
+  try {
+    switch (event.data) {
+      case YT.PlayerState.PLAYING:
+        cambiarEstado('activo', 'Reproduciendo - Letra sincronizada');
+        modoManual = false;
+        break;
+      case YT.PlayerState.PAUSED:
+        cambiarEstado('espera', 'En pausa');
+        break;
+      case YT.PlayerState.ENDED:
+        cambiarEstado('espera', 'Canción terminada');
+        break;
+      case YT.PlayerState.BUFFERING:
+        cambiarEstado('espera', 'Cargando...');
+        break;
+    }
+  } catch (e) { console.error(e); }
+}
+
+function onPlayerError(event) {
+  console.error('Error reproductor YouTube:', event.data);
+  intentosFallo++;
+  if (event.data === 150 || event.data === 101 || intentosFallo >= 2) {
+    mostrarFallback();
+  }
+}
+
+function mostrarFallback() {
+  try {
+    var playerDiv = document.getElementById('player');
+    var fallback = document.getElementById('fallback-video');
+    if (playerDiv) playerDiv.style.display = 'none';
+    if (fallback) fallback.style.display = 'flex';
+    cambiarEstado('error', 'Vídeo restringido - Usa modo manual');
+  } catch (e) { console.error(e); }
+}
+
+// Cargar API de YouTube de forma segura
+try {
+  cambiarEstado('espera', 'Cargando API de YouTube...');
+
+  var tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  tag.onerror = function() {
+    console.error('No se pudo cargar la API de YouTube');
+    mostrarFallback();
+  };
+
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  if (firstScriptTag && firstScriptTag.parentNode) {
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  } else {
+    document.head.appendChild(tag);
+  }
+
+  // Timeout de seguridad: si la API no carga en 10 segundos, mostrar fallback
+  setTimeout(function() {
+    if (typeof YT === 'undefined' || !player) {
+      console.warn('Timeout: API de YouTube no cargó a tiempo');
+      mostrarFallback();
+    }
+  }, 10000);
+
+} catch (e) {
+  console.error('Error cargando API:', e);
+  mostrarFallback();
+}
+
+// Inicializar letra al cargar
+document.addEventListener('DOMContentLoaded', function() {
+  try {
+    actualizarLetra(0);
+  } catch (e) { console.error(e); }
+});
+
+console.log('✅ Página cargada correctamente');
+</script>
+
+</body>
+</html>
