@@ -1,112 +1,109 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Pareja del Año</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 50px 20px;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #4facfe, #00c9ff, #7b4397, #dc2430);
-      background-size: 400% 400%;
-      animation: fondo 15s ease infinite;
-      font-family: Arial, sans-serif;
-      text-align: center;
-    }
-    
-    @keyframes fondo {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    
-    h1 {
-      color: white;
-      font-size: 2.5em;
-      margin-bottom: 50px;
-    }
-    
-    .mensaje {
-      background: rgba(255,255,255,0.15);
-      border: 2px solid rgba(255,255,255,0.3);
-      border-radius: 20px;
-      padding: 40px 30px;
-      color: white;
-      font-size: 1.5em;
-      font-style: italic;
-      max-width: 500px;
-      margin: 0 auto 60px;
-    }
-    
-    button {
-      background: linear-gradient(135deg, #ffecd2, #fcb69f);
-      color: #6b4226;
-      border: none;
-      border-radius: 50px;
-      padding: 18px 40px;
-      font-size: 1.1em;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(252,182,159,0.4);
-    }
-    
-    button:hover {
-      transform: translateY(-3px);
-    }
-    
-    .flor {
-      position: fixed;
-      font-size: 30px;
-      pointer-events: none;
-      z-index: 999;
-      animation: caer 5s linear forwards;
-    }
-    
-    @keyframes caer {
-      0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(100vh) rotate(360deg); opacity: 0.7; }
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Pareja del Año</title>
+<style>
+body {
+  margin: 0;
+  padding: 80px 20px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #4facfe, #7b4397, #dc2430);
+  background-size: 400% 400%;
+  animation: fondo 15s ease infinite;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+@keyframes fondo {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+h1 {
+  color: white;
+  font-size: 32px;
+  margin-bottom: 40px;
+}
+
+.texto {
+  padding: 30px;
+  color: white;
+  font-size: 22px;
+  font-style: italic;
+  max-width: 500px;
+  margin: 0 auto 50px;
+}
+
+button {
+  background: #ffe8c8;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 30px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.flor {
+  position: fixed;
+  top: 0;
+  font-size: 30px;
+  pointer-events: none;
+  animation: caer 5s linear forwards;
+}
+
+@keyframes caer {
+  0% { transform: translateY(-50px); opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0.7; }
+}
+</style>
 </head>
 <body>
 
-<audio id="musica" loop style="display:none;">
-  <source src="audio.mp3" type="audio/mpeg">
-
-
 <h1>💐 Pareja del Año 💐</h1>
 
-<div class="mensaje">
-  Escribe aquí tu mensaje especial con letras en cursiva ✨
+<div class="texto">
+  Aquí va tu mensaje especial ❤️
 </div>
 
-<button onclick="lanzar()">🌸 ¡Generar Flores! 🌺</button>
+<button onclick="lanzarFlores()">🌸 ¡Generar Flores! 🌺</button>
 
 <script>
-const flores = ['🌸','🌺','🌻','🌷','🌹','💐','🌼'];
-const audio = document.getElementById('musica');
+const tipos = ['🌸','🌺','🌻','🌷','🌹','💐','🌼'];
+let musicaActiva = false;
+
+// Cargar audio de forma segura — NO bloquea la página
+function iniciarAudio() {
+  if (musicaActiva) return;
+  const audio = new Audio('audio.mp3');
+  audio.loop = true;
+  audio.volume = 0.5;
+  audio.play().then(() => {
+    musicaActiva = true;
+    console.log('🎵 Música activada');
+  }).catch(() => {
+    console.log('ℹ️ Coloca audio.mp3 en la carpeta para escuchar música');
+  });
+}
 
 function crearFlor() {
   const f = document.createElement('div');
   f.className = 'flor';
-  f.textContent = flores[Math.floor(Math.random()*flores.length)];
-  f.style.left = Math.random()*100 + 'vw';
-  f.style.fontSize = (20 + Math.random()*20) + 'px';
+  f.textContent = tipos[Math.floor(Math.random() * tipos.length)];
+  f.style.left = Math.random() * 100 + '%';
   document.body.appendChild(f);
-  setTimeout(()=>f.remove(), 5000);
+  setTimeout(() => f.remove(), 5000);
 }
 
-function lanzar() {
-  for(let i=0; i<25; i++) setTimeout(crearFlor, i*40);
+function lanzarFlores() {
+  for(let i=0; i<20; i++) setTimeout(crearFlor, i*50);
 }
 
 setInterval(crearFlor, 800);
 
-document.addEventListener('click', function iniciarAudio() {
-  audio.volume = 0.6;
-  audio.play();
-});
+// Activar música al primer clic
+document.addEventListener('click', iniciarAudio);
 </script>
 
 </body>
