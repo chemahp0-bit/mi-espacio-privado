@@ -36,24 +36,27 @@
       margin: 0 auto 50px;
     }
 
-    /* BOTÓN FIJO — Abajo a la derecha */
+    /* BOTÓN FIJO — Abajo a la derecha con Stitch */
     button[onclick="lanzarFlores()"] {
       position: fixed;
-      bottom: 30px;        /* 👈 Lo coloca abajo */
-      right: 20px;         /* 👈 A la derecha */
+      bottom: 30px;
+      right: 20px;
       padding: 12px 20px;
-      background: linear-gradient(135deg, #ffd700, #ffb347);
-      color: #4a2c2a;
+      background: linear-gradient(135deg, #87ceeb, #4169e1);
+      color: white;
       border: none;
-      border-radius: 25px;
+      border-radius: 30px;
       font-size: 17px;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
       z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     button[onclick="lanzarFlores()"]:hover {
-      background: linear-gradient(135deg, #ffed9e, #ffd700);
+      background: linear-gradient(135deg, #b0e0e6, #6495ed);
       transform: scale(1.05);
     }
 
@@ -93,7 +96,9 @@
     <p>Y así, con la ternura que solo el cariño sincero puede dar, te dejo estas palabras como promesa eterna: mi corazón es tuyo, ha sido tuyo y será tuyo para siempre. No tiene dueño más que tú, mi querida madame.</p>
   </div>
 
-  <button onclick="lanzarFlores()">🌸 ¡Generar Flores! 🌺</button>
+  <button onclick="lanzarFlores()">
+    🧵 ¡Generar Flores! 🌸
+  </button>
 
   <script>
     const tipos = ['🌹','🌷','🪻','🌺','🏵️','💮','🌸','🌼','🌻','💐'];
