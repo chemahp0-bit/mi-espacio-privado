@@ -12,8 +12,34 @@ body {
   background-size: 400% 400%;
   animation: fondo 15s ease infinite;
   font-family: Arial, sans-serif;
-  text-align: center;
+  text-align: center; body {
 }
+
+/* 👇 PEGA TODO EL CÓDIGO DEL BOTÓN JUSTO AQUÍ 👇 */
+
+button[onclick="lanzarFlores()"] {
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  padding: 12px 18px;
+  background: linear-gradient(135deg, #ffd700, #ffb347);
+  color: #4a2c2a;
+  border: none;
+  border-radius: 25px;
+  font-size: 17px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+  z-index: 999;
+}
+
+button[onclick="lanzarFlores()"]:hover {
+  background: linear-gradient(135deg, #ffed9e, #ffd700);
+  transform: translateY(-50%) scale(1.05);
+}
+
+/* ☝️ Aquí termina el código nuevo */
+</style>
 
 @keyframes fondo {
   0% { background-position: 0% 50%; }
