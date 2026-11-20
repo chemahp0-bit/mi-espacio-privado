@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pareja del Año - Sebastián Yatra & Myke Towers</title>
+  <title>Pareja del Año</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
@@ -13,9 +13,11 @@
       background: linear-gradient(135deg, #4facfe, #00c9ff, #7b4397, #dc2430);
       background-size: 400% 400%;
       animation: gradientBG 15s ease infinite;
-      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       padding: 30px 20px;
-      padding-bottom: 180px;
     }
     
     @keyframes gradientBG {
@@ -25,328 +27,87 @@
     }
     
     .container {
-      max-width: 900px;
-      margin: 0 auto;
       text-align: center;
+      color: white;
     }
     
     h1 {
-      color: white;
+      font-size: 2.5em;
+      margin-bottom: 10px;
       text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
-      margin-bottom: 5px;
-      font-size: 2.2em;
     }
     
     .subtitle {
-      color: rgba(255,255,255,0.85);
-      margin-bottom: 25px;
-      font-size: 1em;
+      font-size: 1.2em;
+      opacity: 0.9;
+      margin-bottom: 40px;
     }
     
-    .mensaje-personalizado {
+    .mensaje {
       background: rgba(255, 255, 255, 0.15);
       border: 2px solid rgba(255, 255, 255, 0.3);
       border-radius: 15px;
-      padding: 18px 25px;
-      margin-bottom: 30px;
-      color: #fff;
-      font-size: 1.1em;
-      min-height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      padding: 25px 35px;
+      font-size: 1.2em;
+      max-width: 500px;
       backdrop-filter: blur(10px);
+      margin-bottom: 40px;
     }
     
-    .audio-container {
-      background: rgba(0,0,0,0.25);
-      padding: 25px;
-      border-radius: 50px;
-      margin-bottom: 30px;
-      display: inline-block;
-      backdrop-filter: blur(10px);
+    .aviso-audio {
+      background: rgba(0,0,0,0.2);
+      padding: 20px 30px;
+      border-radius: 12px;
+      font-size: 0.95em;
+      max-width: 450px;
     }
     
     audio {
-      width: 100%;
-      max-width: 400px;
-      height: 45px;
-      margin-bottom: 12px;
-    }
-    
-    .btn-play {
-      background: linear-gradient(135deg, #ffecd2, #fcb69f);
-      color: #333;
-      border: none;
-      border-radius: 30px;
-      padding: 15px 40px;
-      font-size: 1.1em;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(252, 182, 159, 0.4);
-      transition: all 0.3s ease;
-    }
-    
-    .btn-play:hover {
-      transform: translateY(-2px);
-    }
-    
-    .btn-flowers {
-      background: linear-gradient(135deg, #ffe8c8, #ffd3b6);
-      color: #5a3e2b;
-      border: none;
-      border-radius: 50px;
-      padding: 14px 35px;
-      font-size: 1.05em;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(255, 183, 137, 0.3);
-      margin-bottom: 60px;
-    }
-    
-    .btn-flowers:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(255, 183, 137, 0.4);
-    }
-    
-    .lyrics-wrapper {
-      position: fixed;
-      bottom: 40px;
-      left: 0;
-      right: 0;
-      padding: 20px;
-      text-align: center;
-      z-index: 100;
-    }
-    
-    .lyrics-container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    
-    .lyrics-line.active {
-      font-family: 'Georgia', 'Palatino', serif;
-      font-size: 1.8em;
-      font-weight: 600;
-      color: #fff;
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.35);
-      letter-spacing: 0.5px;
-      line-height: 1.5;
-      transition: all 0.5s ease;
-      opacity: 1;
-    }
-    
-    .lyrics-line.next {
-      font-family: 'Georgia', 'Palatino', serif;
-      font-size: 1.05em;
-      color: rgba(255, 255, 255, 0.45);
-      margin-top: 8px;
-      font-style: italic;
-      transition: all 0.5s ease;
-    }
-    
-    .flower {
-      position: fixed;
-      font-size: 30px;
-      pointer-events: none;
-      z-index: 50;
-      animation: fallFlower linear forwards;
-    }
-    
-    @keyframes fallFlower {
-      0% {
-        opacity: 1;
-        transform: translate(0, -50px) rotate(0deg) scale(1);
-      }
-      100% {
-        opacity: 0.7;
-        transform: translate(var(--drift-x), calc(100vh + 60px)) rotate(var(--rotate-end)) scale(0.9);
-      }
+      opacity: 0.7;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
 
+  <audio id="musica" autoplay loop preload="auto">
+    <source src="audio.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio.
+  
+
   <div class="container">
     <h1>💐 Pareja del Año 💐</h1>
     <p class="subtitle">Sebastián Yatra & Myke Towers</p>
     
-    <div class="mensaje-personalizado">
+    <div class="mensaje">
       ✨ Escribe aquí tu mensaje especial ✨
     </div>
     
-    <div class="audio-container">
-      <!-- ✅ Nombre simple: audio.mp3 -->
-      <audio id="audioPlayer" controls preload="auto">
-        <source src="audio.mp3" type="audio/mpeg">
-        Tu navegador no soporta el elemento de audio.
-      
-      
-      <br>
-      <button class="btn-play" id="playAudioBtn">▶️ Toca aquí para empezar 🎵</button>
+    <div class="aviso-audio">
+      🎵 Si no escuchas música, activa el sonido de tu navegador o haz clic en el reproductor de abajo.
     </div>
     
-    <br>
-    <button class="btn-flowers" onclick="generarRafagaFlores()">🌸 ¡Generar Flores! 🌺</button>
-  </div>
-
-  <div class="lyrics-wrapper">
-    <div class="lyrics-container">
-      <div class="lyrics-line active" id="currentLine">Pulsa el botón para empezar ✨</div>
-      <div class="lyrics-line next" id="nextLine"></div>
-    </div>
+    <audio controls>
+      <source src="audio.mp3" type="audio/mpeg">
+    
   </div>
 
   <script>
-const letra = [
-  { tiempo: 0.00, texto: "♪ ♪ ♪" },
-  { tiempo: 3.00, texto: "Uoh-oh (yeah)" },
-  { tiempo: 5.50, texto: "Uoh-oh (Myke Towers)" },
-  { tiempo: 8.50, texto: "Mmm-mmm (Yatra, Yatra)" },
-  { tiempo: 12.00, texto: "¿Qué tan loco sería" },
-  { tiempo: 15.00, texto: "Si yo fuera el dueño de tu corazón por solo un día?" },
-  { tiempo: 20.00, texto: "Si nos gana la alegría, yo por fin te besaría" },
-  { tiempo: 24.00, texto: "¿Qué pasaría?" },
-  { tiempo: 27.00, texto: "¿Podrías ver entre él y yo quién ganaría?" },
-  { tiempo: 31.00, texto: "Mi condición" },
-  { tiempo: 34.00, texto: "Enamorado locamente de una chica que hoy extraño" },
-  { tiempo: 39.00, texto: "Y no tenerte me hace daño" },
-  { tiempo: 42.00, texto: "Seríamos la pareja del año, cuánto te extraño" },
-  { tiempo: 47.00, texto: "Sin condición" },
-  { tiempo: 50.00, texto: "Me enamoré, precisamente, de una chica que no es mía" },
-  { tiempo: 55.00, texto: "Y mis amigos lo sabían" },
-  { tiempo: 58.00, texto: "Y a mí todo el mundo me decía qué pasaría, me dejarías" },
-  { tiempo: 63.00, texto: "Si me dieran solo 24 horas, yo la aprovecho" },
-  { tiempo: 67.00, texto: "Juro que yo voy a hacerte cosas que nunca te han hecho" },
-  { tiempo: 72.00, texto: "Ya yo me cansé de ser amigos con derechos" },
-  { tiempo: 76.00, texto: "Yo tal vez no te merezco, pero no hay ni que decirlo" },
-  { tiempo: 81.00, texto: "Si nos juntamos, seríamos la pareja del siglo" },
-  { tiempo: 85.00, texto: "Con ella, a capela me da con introducirlo" },
-  { tiempo: 89.00, texto: "Navaja de doble filo" },
-  { tiempo: 92.00, texto: "Cortamos y los videos me dio con reproducirlos" },
-  { tiempo: 96.00, texto: "Me lo decían, yo los ignoraba" },
-  { tiempo: 99.00, texto: "Simplemente, todo ahora quedó en la nada" },
-  { tiempo: 103.00, texto: "Se lo hacía y a los ojos la miraba" },
-  { tiempo: 106.00, texto: "Yo nunca creí que el amor cegaba" },
-  { tiempo: 110.00, texto: "Mi condición" },
-  { tiempo: 113.00, texto: "Enamorado locamente de una chica que hoy extraño" },
-  { tiempo: 118.00, texto: "Y no tenerte me hace daño" },
-  { tiempo: 121.00, texto: "Seríamos la pareja del año, cuánto te extraño" },
-  { tiempo: 126.00, texto: "Sin condición" },
-  { tiempo: 129.00, texto: "Me enamoré, precisamente, de una chica que no es mía" },
-  { tiempo: 134.00, texto: "Y mis amigos lo sabían" },
-  { tiempo: 137.00, texto: "Y a mí todo el mundo me decía qué pasaría, me dejarías" },
-  { tiempo: 142.00, texto: "Asumí mi depresión de ver una foto tuya" },
-  { tiempo: 146.00, texto: "Y verte en la televisión puede ser que me destruya la mente" },
-  { tiempo: 151.00, texto: "Detente, como dice la canción" },
-  { tiempo: 154.00, texto: "Que no meten preso a nadie por robarse un corazón" },
-  { tiempo: 159.00, texto: "Sufriendo, llorando de pena" },
-  { tiempo: 162.00, texto: "Que no vea mi llanto, no vale la pena" },
-  { tiempo: 166.00, texto: "Yo no tengo alas, pero tú sí vuelas" },
-  { tiempo: 169.00, texto: "Se vuelve la mala de nuestra novela" },
-  { tiempo: 173.00, texto: "Me tienes sufriendo, llorando de pena" },
-  { tiempo: 176.00, texto: "Que no vea mi llanto, no vale la pena" },
-  { tiempo: 180.00, texto: "Yo no tengo alas, pero tú sí vuelas" },
-  { tiempo: 183.00, texto: "Me quitas la pista y me quedo a capela" },
-  { tiempo: 187.00, texto: "Mi condición" },
-  { tiempo: 190.00, texto: "Enamorado locamente de una chica que hoy extraño" },
-  { tiempo: 195.00, texto: "Y no tenerte me hace daño" },
-  { tiempo: 198.00, texto: "Seríamos la pareja del año, cuánto te extraño" },
-  { tiempo: 203.00, texto: "Sin condición" },
-  { tiempo: 206.00, texto: "Me enamoré, precisamente, de una chica que no es mía" },
-  { tiempo: 211.00, texto: "Y mis amigos lo sabían" },
-  { tiempo: 214.00, texto: "Y a mí todo el mundo me decía qué pasaría, me dejarías" },
-  { tiempo: 219.00, texto: "Yo tenía otra melodía" },
-  { tiempo: 222.00, texto: "De lo que resultaría" },
-  { tiempo: 225.00, texto: "Maldita monotonía" },
-  { tiempo: 229.00, texto: "¿Fue culpa tuya o fue culpa mía? (Seríamos la pareja del año)" },
-  { tiempo: 234.00, texto: "Yo aprendí a vivir con celos (celos)" },
-  { tiempo: 238.00, texto: "Tú aprendiste a no ser mía (no)" },
-  { tiempo: 242.00, texto: "Solo queda ser sincero" },
-  { tiempo: 246.00, texto: "Yo te quiero todavía" },
-  { tiempo: 250.00, texto: "🎵 Fin 🎵" }
-];
-
-const emojisFlores = ['🌸', '🌺', '🌻', '🌷', '🌹', '💐', '🌼', '🌺', '🌸'];
-
-let lineaActual = -1;
-let reproductor;
-
-document.addEventListener('DOMContentLoaded', function() {
-  reproductor = document.getElementById('audioPlayer');
-  const botonReproducir = document.getElementById('playAudioBtn');
-  
-  reproductor.addEventListener('timeupdate', actualizarLetra);
-  setInterval(generarFlorSola, 3500);
-  
-  botonReproducir.addEventListener('click', function() {
-    reproductor.play().then(function() {
-      botonReproducir.style.display = 'none';
-      document.getElementById('currentLine').textContent = "¡Disfruta! ✨";
-    }).catch(function(err) {
-      console.error(err);
-      alert("❌ No se pudo cargar el audio.\n\nAsegúrate de que el archivo se llame: audio.mp3\n\nError: " + err.message);
-    });
-  });
-});
-
-function actualizarLetra() {
-  const tiempoActual = reproductor.currentTime;
-  let indiceEncontrado = -1;
-  
-  for (let i = 0; i < letra.length; i++) {
-    if (tiempoActual >= letra[i].tiempo) {
-      indiceEncontrado = i;
-    }
-  }
-  
-  if (indiceEncontrado !== lineaActual && indiceEncontrado >= 0) {
-    lineaActual = indiceEncontrado;
-    document.getElementById('currentLine').textContent = letra[indiceEncontrado].texto;
+    const audio = document.getElementById('musica');
     
-    if (indiceEncontrado + 1 < letra.length) {
-      document.getElementById('nextLine').textContent = letra[indiceEncontrado + 1].texto;
-    } else {
-      document.getElementById('nextLine').textContent = '';
-    }
-  }
-}
-
-function crearFlor() {
-  const flor = document.createElement('div');
-  flor.className = 'flower';
-  flor.textContent = emojisFlores[Math.floor(Math.random() * emojisFlores.length)];
-  
-  const posicionX = Math.random() * window.innerWidth;
-  flor.style.left = posicionX + 'px';
-  flor.style.top = '-50px';
-  
-  const desplazamientoLateral = (Math.random() - 0.5) * 180;
-  const rotacionFinal = (Math.random() - 0.5) * 720;
-  const duracionCaida = 4 + Math.random() * 5;
-  
-  flor.style.setProperty('--drift-x', desplazamientoLateral + 'px');
-  flor.style.setProperty('--rotate-end', rotacionFinal + 'deg');
-  flor.style.animationDuration = duracionCaida + 's';
-  
-  const tamano = 20 + Math.random() * 20;
-  flor.style.fontSize = tamano + 'px';
-  
-  document.body.appendChild(flor);
-  setTimeout(() => flor.remove(), duracionCaida * 1000);
-}
-
-function generarFlorSola() {
-  crearFlor();
-}
-
-function generarRafagaFlores() {
-  const cantidad = 12 + Math.floor(Math.random() * 12);
-  for (let i = 0; i < cantidad; i++) {
-    setTimeout(crearFlor, i * 45);
-  }
-}
+    // Intento de reproducción automática
+    document.addEventListener('DOMContentLoaded', function() {
+      audio.volume = 0.7;
+      audio.play().catch(function() {
+        console.log("El navegador bloqueó el audio automático — usa el reproductor visible");
+      });
+    });
+    
+    // También reproducir al primer clic del usuario en la página
+    document.addEventListener('click', function iniciarAudio() {
+      audio.play().catch(function() {});
+      document.removeEventListener('click', iniciarAudio);
+    });
   </script>
   
 </body>
