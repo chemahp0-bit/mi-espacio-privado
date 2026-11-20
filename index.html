@@ -177,9 +177,9 @@
     </div>
     
     <div class="audio-container">
-      <!-- ✅ Con tilde: pareja-del-Año.mp3 -->
+      <!-- ✅ Nombre simple: audio.mp3 -->
       <audio id="audioPlayer" controls preload="auto">
-        <source src="pareja-del-año.mp3" type="audio/mpeg">
+        <source src="audio.mp3" type="audio/mpeg">
         Tu navegador no soporta el elemento de audio.
       
       
@@ -284,8 +284,9 @@ document.addEventListener('DOMContentLoaded', function() {
     reproductor.play().then(function() {
       botonReproducir.style.display = 'none';
       document.getElementById('currentLine').textContent = "¡Disfruta! ✨";
-    }).catch(function() {
-      alert("❌ No se pudo cargar el audio.\n\nComprueba que el archivo se llame: pareja-del-año.mp3");
+    }).catch(function(err) {
+      console.error(err);
+      alert("❌ No se pudo cargar el audio.\n\nAsegúrate de que el archivo se llame: audio.mp3\n\nError: " + err.message);
     });
   });
 });
