@@ -1,145 +1,137 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Para Ti, Con Amor ❤️</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 80px 20px;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #4facfe, #7b4397, #dc2430);
-      background-size: 400% 400%;
-      animation: fondo 15s ease infinite;
-      font-family: Arial, sans-serif;
-      text-align: center;
-    }
+<meta charset="UTF-8">
+<title>Para Ti, Con Amor ❤️</title>
+<style>
+body {
+  margin: 0;
+  padding: 80px 20px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #4facfe, #7b4397, #dc2430);
+  background-size: 400% 400%;
+  animation: fondo 15s ease infinite;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
 
-    @keyframes fondo {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+@keyframes fondo {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-    h1 {
-      color: #ff0000;
-      font-size: 32px;
-      margin-bottom: 40px;
-    }
+h1 {
+  color: #ff0000;
+  font-size: 32px;
+  margin-bottom: 40px;
+}
 
-    .texto {
-      padding: 30px;
-      color: #ffb380;
-      font-size: 22px;
-      font-style: italic;
-      max-width: 500px;
-      margin: 0 auto 50px;
-    }
+.texto {
+  padding: 30px;
+  color: #ffb380;
+  font-size: 22px;
+  font-style: italic;
+  max-width: 500px;
+  margin: 0 auto 50px;
+}
 
-    button[onclick="lanzarFlores()"] {
-      position: fixed;
-      top: 50%;
-      right: 20px;
-      transform: translateY(-50%);
-      padding: 12px 18px;
-      background: linear-gradient(135deg, #ffd700, #ffb347);
-      color: #4a2c2a;
-      border: none;
-      border-radius: 25px;
-      font-size: 17px;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
-      z-index: 999;
-    }
+button {
+  background: #ffe8c8;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 30px;
+  font-size: 18px;
+  cursor: pointer;
+}
 
-    button[onclick="lanzarFlores()"]:hover {
-      background: linear-gradient(135deg, #ffed9e, #ffd700);
-      transform: translateY(-50%) scale(1.05);
-    }
+.flor {
+  position: fixed;
+  top: 0;
+  font-size: 30px;
+  pointer-events: none;
+  animation: caer 5s linear forwards;
+}
 
-    .flor {
-      position: fixed;
-      top: 0;
-      font-size: 30px;
-      pointer-events: none;
-      animation: caer 5s linear forwards;
-    }
-
-    @keyframes caer {
-      0% { transform: translateY(-50px); opacity: 1; }
-      100% { transform: translateY(100vh); opacity: 0.7; }
-    }
-  </style>
+@keyframes caer {
+  0% { transform: translateY(-50px); opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0.7; }
+}
+</style>
 </head>
 <body>
 
-  <h1>Para Ti, Con Amor ❤️</h1>
+<h1>No funciona</h1>
 
-  <div class="texto">
-    <p>A veces me detengo a pensar en todo este tiempo transcurrido, en cómo todo cambia a nuestro alrededor, en cómo las personas van y vienen… Y entonces me doy cuenta de algo maravilloso: lo que siento por ti no ha hecho más que fortalecerse.</p>
+<div class="texto">
+  <p>A veces me detengo a pensar en todo este tiempo transcurrido, en cómo todo cambia a nuestro alrededor, en cómo las personas van y vienen… Y entonces me doy cuenta de algo maravilloso: lo que siento por ti no ha hecho más que fortalecerse.</p>
 
-    <p>Han pasado los días, las semanas, los meses, y en cada uno de ellos ha habido un rincón de mi pensamiento reservado solo para ti.</p>
+  <p>Han pasado los días, las semanas, los meses, y en cada uno de ellos ha habido un rincón de mi pensamiento reservado solo para ti.</p>
 
-    <p>Te quiero, con toda la sinceridad de mi alma, y más de lo que jamás podría llegar a expresarte con palabras.</p>
+  <p>Te quiero, con toda la sinceridad de mi alma, y más de lo que jamás podría llegar a expresarte con palabras.</p>
 
-    <p>Sé que la distancia, el tiempo y las circunstancias han hecho lo suyo.</p>
+  <p>Sé que la distancia, el tiempo y las circunstancias han hecho lo suyo.</p>
 
-    <p>Es posible que ya no me guardes un espacio en tu mente como antes. Que mis recuerdos aparezcan solo de vez en cuando, fugaces y lejanos, para desaparecer pronto entre tus ocupaciones.</p>
+  <p>Es posible que ya no me guardes un espacio en tu mente como antes. Que mis recuerdos aparezcan solo de vez en cuando, fugaces y lejanos, para desaparecer pronto entre tus ocupaciones.</p>
 
-    <p>Sé que ya no compartimos nuestras vidas, que el día a día nos ha separado, y sin embargo… cada día que pasa, te quiero un poco más. Es un sentimiento que no necesita nada a cambio para seguir creciendo.</p>
+  <p>Sé que ya no compartimos nuestras vidas, que el día a día nos ha separado, y sin embargo… cada día que pasa, te quiero un poco más. Es un sentimiento que no necesita nada a cambio para seguir creciendo.</p>
 
-    <p>No espero que me busques, ni que me recuerdes siempre. Solo me basta con saber que existes, que estás en este mundo, que en algún momento nuestros caminos se cruzaron y dejaste una huella en mí que nada podrá borrar. Eso es suficiente para hacerme feliz.</p>
+  <p>No espero que me busques, ni que me recuerdes siempre. Solo me basta con saber que existes, que estás en este mundo, que en algún momento nuestros caminos se cruzaron y dejaste una huella en mí que nada podrá borrar. Eso es suficiente para hacerme feliz.</p>
 
-    <p>Y así, con la ternura que solo el cariño sincero puede dar, te dejo estas palabras como promesa eterna: mi corazón es tuyo, ha sido tuyo y será tuyo para siempre. No tiene dueño más que tú, mi querida madame.</p>
-  </div>
+  <p>Y así, con la ternura que solo el cariño sincero puede dar, te dejo estas palabras como promesa eterna: mi corazón es tuyo, ha sido tuyo y será tuyo para siempre. No tiene dueño más que tú, mi querida madame.</p>
+</div>
 
-  <button onclick="lanzarFlores()">🌸 ¡Generar Flores! 🌺</button>
 
-  <script>
-    const tipos = ['🌹','🌷','🪻','🌺','🏵️','💮','🌸','🌼','🌻','💐'];
-    let musicaActiva = false;
+<button onclick="lanzarFlores()">🌸 ¡Generar Flores! 🌺</button>
 
-    function iniciarAudio() {
-      if (musicaActiva) return;
-      const audio = new Audio('audio.mp3');
-      audio.loop = true;
-      audio.volume = 0.5;
-      audio.play().then(() => {
-        musicaActiva = true;
-        console.log('🎵 Música activada');
-      }).catch(() => {
-        console.log('ℹ️ Coloca audio.mp3 en la carpeta para escuchar música');
-      });
-    }
+<script>
+const tipos = ['🌹','🌷','🪻','🌺','🏵️','💮','🌸','🌼','🌻','💐'];
+let musicaActiva = false;
 
-    function crearFlor() {
-      const f = document.createElement('div');
-      f.className = 'flor';
-      f.textContent = tipos[Math.floor(Math.random() * tipos.length)];
-      f.style.left = Math.random() * 100 + '%';
-      document.body.appendChild(f);
-      setTimeout(() => f.remove(), 5000);
-    }
+// Cargar audio de forma segura — NO bloquea la página
+function iniciarAudio() {
+  if (musicaActiva) return;
+  const audio = new Audio('audio.mp3');
+  audio.loop = true;
+  audio.volume = 0.5;
+  audio.play().then(() => {
+    musicaActiva = true;
+    console.log('🎵 Música activada');
+  }).catch(() => {
+    console.log('ℹ️ Coloca audio.mp3 en la carpeta para escuchar música');
+  });
+}
 
-    function lanzarFlores() {
-      for(let i=0; i<20; i++) setTimeout(crearFlor, i*50);
-    }
+function crearFlor() {
+  const f = document.createElement('div');
+  f.className = 'flor';
+  f.textContent = tipos[Math.floor(Math.random() * tipos.length)];
+  f.style.left = Math.random() * 100 + '%';
+  document.body.appendChild(f);
+  setTimeout(() => f.remove(), 5000);
+}
 
-    setInterval(function() {
-      crearFlor();
-      crearFlor();
-      crearFlor();
-      crearFlor();
-      crearFlor();
-      crearFlor();
-      crearFlor();
-      crearFlor();
-      crearFlor();
-      crearFlor();
-    }, 600);
+function lanzarFlores() {
+  for(let i=0; i<20; i++) setTimeout(crearFlor, i*50);
+}
 
-    document.addEventListener('click', iniciarAudio);
-  </script>
+setInterval(function() {
+  crearFlor();
+  crearFlor();
+  crearFlor();
+  crearFlor();
+  crearFlor();
+  crearFlor();
+  crearFlor();
+  crearFlor();
+  crearFlor();
+  crearFlor();
+}, 600);
+
+
+// Activar música al primer clic
+document.addEventListener('click', iniciarAudio);
+</script>
 
 </body>
 </html>
