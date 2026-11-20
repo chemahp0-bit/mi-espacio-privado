@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pareja del Año - Sebastián Yatra & Myke Towers</title>
+  <title>Pareja del Año</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
@@ -28,18 +28,19 @@
       max-width: 900px;
       margin: 0 auto;
       text-align: center;
+      padding-top: 60px;
     }
     
     h1 {
       color: white;
       text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
-      margin-bottom: 5px;
+      margin-bottom: 10px;
       font-size: 2.2em;
     }
     
     .subtitle {
       color: rgba(255,255,255,0.85);
-      margin-bottom: 30px;
+      margin-bottom: 50px;
       font-size: 1em;
     }
     
@@ -47,32 +48,17 @@
       background: rgba(255, 255, 255, 0.15);
       border: 2px solid rgba(255, 255, 255, 0.3);
       border-radius: 15px;
-      padding: 25px 35px;
-      margin-bottom: 30px;
+      padding: 30px 40px;
+      margin-bottom: 60px;
       color: #fff;
-      font-size: 1.3em;
-      line-height: 1.6;
+      font-size: 1.4em;
+      line-height: 1.8;
       min-height: 100px;
       display: flex;
       align-items: center;
       justify-content: center;
       backdrop-filter: blur(10px);
-      font-style: italic; /* ✅ LETRAS EN CURSIVA */
-    }
-    
-    .audio-container {
-      background: rgba(0,0,0,0.25);
-      padding: 25px;
-      border-radius: 50px;
-      margin-bottom: 30px;
-      display: inline-block;
-      backdrop-filter: blur(10px);
-    }
-    
-    audio {
-      width: 100%;
-      max-width: 400px;
-      height: 45px;
+      font-style: italic;
     }
     
     .btn-flowers {
@@ -80,8 +66,8 @@
       color: #5a3e2b;
       border: none;
       border-radius: 50px;
-      padding: 14px 35px;
-      font-size: 1.05em;
+      padding: 16px 40px;
+      font-size: 1.1em;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
@@ -89,8 +75,14 @@
     }
     
     .btn-flowers:hover {
-      transform: translateY(-2px);
+      transform: translateY(-3px);
       box-shadow: 0 6px 20px rgba(255, 183, 137, 0.4);
+    }
+    
+    .aviso-clic {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9em;
+      margin-top: 40px;
     }
     
     .flower {
@@ -107,43 +99,44 @@
         transform: translate(0, -50px) rotate(0deg) scale(1);
       }
       100% {
-        opacity: 0.7;
-        transform: translate(var(--drift-x), calc(100vh + 60px)) rotate(var(--rotate-end)) scale(0.9);
+        opacity: 0.8;
+        transform: translate(var(--drift-x), calc(100vh + 60px)) rotate(var(--rotate-end)) scale(1);
       }
     }
   </style>
 </head>
 <body>
 
+  <!-- 🔊 Audio de fondo OCULTO — NO se ve ningún reproductor -->
+  <audio id="musica" loop preload="auto">
+    <source src="audio.mp3" type="audio/mpeg">
+  
+
   <div class="container">
     <h1>💐 Pareja del Año 💐</h1>
     <p class="subtitle">Sebastián Yatra & Myke Towers</p>
     
     <!-- ======================================================
-     ✅ AQUÍ ES DONDE ESCRIBES TU MENSAJE 
-     Cambia el texto que está entre las dos líneas de abajo
+     ✅ TU MENSAJE — Cambia solo el texto de abajo
      ====================================================== -->
     <div class="mensaje-personalizado">
-      Escribe aquí tu mensaje especial con letras en cursiva ✨
+      Escribe aquí tu mensaje especial en cursiva ✨
     </div>
     <!-- ======================================================
-     FIN DEL MENSAJE - No toques nada más de alrededor
+     FIN DEL MENSAJE
      ====================================================== -->
     
-    <div class="audio-container">
-      <audio controls preload="auto">
-        <source src="audio.mp3" type="audio/mpeg">
-        Tu navegador no soporta el elemento de audio.
-      
-    </div>
-    
-    <br><br>
     <button class="btn-flowers" onclick="generarRafagaFlores()">🌸 ¡Generar Flores! 🌺</button>
+    
+    <p class="aviso-clic">💡 Haz clic en cualquier parte para escuchar la música 🎵</p>
   </div>
 
   <script>
-    const emojisFlores = ['🌸', '🌺', '🌻', '🌷', '🌹', '💐', '🌼', '🌺', '🌸'];
+    const emojisFlores = ['🌸', '🌺', '🌻', '🌷', '🌹', '💐', '🌼', '🌺', '🌸', '🌷', '🌹', '💐'];
+    const audio = document.getElementById('musica');
+    let musicaIniciada = false;
     
+    // 🌸 Crear una flor cayendo
     function crearFlor() {
       const flor = document.createElement('div');
       flor.className = 'flower';
@@ -153,34 +146,44 @@
       flor.style.left = posicionX + 'px';
       flor.style.top = '-50px';
       
-      const desplazamientoLateral = (Math.random() - 0.5) * 180;
-      const rotacionFinal = (Math.random() - 0.5) * 720;
-      const duracionCaida = 4 + Math.random() * 5;
+      const desplazamientoLateral = (Math.random() - 0.5) * 250;
+      const rotacionFinal = (Math.random() - 0.5) * 1080;
+      const duracionCaida = 3 + Math.random() * 4;
       
       flor.style.setProperty('--drift-x', desplazamientoLateral + 'px');
       flor.style.setProperty('--rotate-end', rotacionFinal + 'deg');
       flor.style.animationDuration = duracionCaida + 's';
       
-      const tamano = 20 + Math.random() * 20;
+      const tamano = 18 + Math.random() * 22;
       flor.style.fontSize = tamano + 'px';
       
       document.body.appendChild(flor);
       setTimeout(() => flor.remove(), duracionCaida * 1000);
     }
     
-    function generarFlorSola() {
-      crearFlor();
-    }
-    
+    // 🌸 Botón: ráfaga de muchas flores
     function generarRafagaFlores() {
-      const cantidad = 12 + Math.floor(Math.random() * 12);
+      const cantidad = 25;
       for (let i = 0; i < cantidad; i++) {
-        setTimeout(crearFlor, i * 45);
+        setTimeout(crearFlor, i * 30);
       }
     }
     
-    // Flores cayendo solas
-    setInterval(generarFlorSola, 3500);
+    // 🌸 Flores cayendo SOLAS constantemente
+    setInterval(crearFlor, 600); // Una flor cada 0.6 segundos
+    
+    // 🎵 Música al primer clic del usuario
+    document.addEventListener('click', function iniciarAudio() {
+      if (musicaIniciada) return;
+      
+      audio.volume = 0.6;
+      audio.play().then(function() {
+        musicaIniciada = true;
+        document.querySelector('.aviso-clic').style.opacity = '0';
+      }).catch(function(err) {
+        console.log('Audio no disponible:', err);
+      });
+    });
   </script>
   
 </body>
