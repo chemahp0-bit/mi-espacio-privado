@@ -41,18 +41,23 @@
       position: fixed;
       bottom: 30px;
       right: 20px;
-      padding: 12px 20px;
+      padding: 10px 20px 10px 15px;
       background: linear-gradient(135deg, #87ceeb, #4169e1);
       color: white;
       border: none;
-      border-radius: 30px;
+      border-radius: 40px;
       font-size: 17px;
       cursor: pointer;
       box-shadow: 0 4px 15px rgba(0,0,0,0.3);
       z-index: 999;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
+    }
+
+    button[onclick="lanzarFlores()"] img {
+      width: 45px;
+      height: auto;
     }
 
     button[onclick="lanzarFlores()"]:hover {
@@ -97,7 +102,8 @@
   </div>
 
   <button onclick="lanzarFlores()">
-    🧵 ¡Generar Flores! 🌸
+    <img src="stitch.png" alt="Stitch">
+    ¡Generar Flores! 🌸
   </button>
 
   <script>
