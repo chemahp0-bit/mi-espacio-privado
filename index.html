@@ -39,8 +39,25 @@
     
     .subtitle {
       color: rgba(255,255,255,0.85);
-      margin-bottom: 25px;
+      margin-bottom: 20px;
       font-size: 1em;
+    }
+    
+    .aviso-clic {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      border-radius: 12px;
+      padding: 15px 25px;
+      color: #fff;
+      font-size: 1em;
+      margin-bottom: 25px;
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .aviso-clic:hover {
+      background: rgba(255, 255, 255, 0.3);
     }
     
     .mensaje-personalizado {
@@ -113,9 +130,19 @@
 </head>
 <body>
 
+  <!-- Audio oculto -->
+  <audio id="musica" loop preload="auto">
+    <source src="audio.mp3" type="audio/mpeg">
+    Tu navegador no soporta el elemento de audio.
+  
+
   <div class="container">
     <h1>💐 Pareja del Año 💐</h1>
     <p class="subtitle">Sebastián Yatra & Myke Towers</p>
+    
+    <div class="aviso-clic" id="avisoAudio" onclick="empezarMusica()">
+      🎵 <strong>Haz clic aquí</strong> o en cualquier parte para escuchar la música ✨
+    </div>
     
     <div class="mensaje-personalizado">
       ✨ Escribe aquí tu mensaje especial ✨
@@ -134,7 +161,31 @@
 
   <script>
     const emojisFlores = ['🌸', '🌺', '🌻', '🌷', '🌹', '💐', '🌼', '🌺', '🌸'];
+    const audio = document.getElementById('musica');
+    const aviso = document.getElementById('avisoAudio');
+    let musicaIniciada = false;
     
+    function empezarMusica() {
+      if (musicaIniciada) return;
+      
+      audio.volume = 0.7;
+      audio.play().then(function() {
+        musicaIniciada = true;
+        aviso.innerHTML = '✅ ¡Música sonando! 🎶';
+        aviso.style.background = 'rgba(144, 238, 144, 0.25)';
+        aviso.style.border = '2px solid rgba(144, 238, 144, 0.4)';
+      }).catch(function(err) {
+        console.log('Error:', err);
+        aviso.innerHTML = '🔇 Pulsa el botón de Play en el reproductor de abajo ▶️';
+      });
+    }
+    
+    // También funciona con cualquier clic en la página
+    document.addEventListener('click', function() {
+      if (!musicaIniciada) empezarMusica();
+    });
+    
+    // Flores cayendo
     function crearFlor() {
       const flor = document.createElement('div');
       flor.className = 'flower';
@@ -170,7 +221,6 @@
       }
     }
     
-    // Flores cayendo solas cada cierto tiempo
     setInterval(generarFlorSola, 3500);
   </script>
   
