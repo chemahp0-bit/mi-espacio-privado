@@ -28,7 +28,7 @@
       max-width: 900px;
       margin: 0 auto;
       text-align: center;
-      padding-top: 60px;
+      padding-top: 80px;
     }
     
     h1 {
@@ -80,7 +80,7 @@
     }
     
     .aviso-clic {
-      color: rgba(255,255,255,0.7);
+      color: rgba(255,255,255,0.6);
       font-size: 0.9em;
       margin-top: 40px;
     }
@@ -100,15 +100,15 @@
       }
       100% {
         opacity: 0.8;
-        transform: translate(var(--drift-x), calc(100vh + 60px)) rotate(var(--rotate-end)) scale(1);
+        transform: translate(var(--drift-x), calc(100vh + 60px)) rotate(var(--rotate-end)) scale(0.9);
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- 🔊 Audio de fondo OCULTO — NO se ve ningún reproductor -->
-  <audio id="musica" loop preload="auto">
+  <!-- 🔊 Audio TOTALMENTE OCULTO - Sin espacio visible -->
+  <audio id="musica" loop preload="auto" style="display: none;">
     <source src="audio.mp3" type="audio/mpeg">
   
 
@@ -117,7 +117,7 @@
     <p class="subtitle">Sebastián Yatra & Myke Towers</p>
     
     <!-- ======================================================
-     ✅ TU MENSAJE — Cambia solo el texto de abajo
+     ✅ TU MENSAJE - Cambia solo el texto de abajo
      ====================================================== -->
     <div class="mensaje-personalizado">
       Escribe aquí tu mensaje especial en cursiva ✨
@@ -128,7 +128,7 @@
     
     <button class="btn-flowers" onclick="generarRafagaFlores()">🌸 ¡Generar Flores! 🌺</button>
     
-    <p class="aviso-clic">💡 Haz clic en cualquier parte para escuchar la música 🎵</p>
+    <p class="aviso-clic">💡 Haz clic una vez en la página para escuchar la música 🎵</p>
   </div>
 
   <script>
@@ -136,7 +136,7 @@
     const audio = document.getElementById('musica');
     let musicaIniciada = false;
     
-    // 🌸 Crear una flor cayendo
+    // 🌸 Crear flor cayendo
     function crearFlor() {
       const flor = document.createElement('div');
       flor.className = 'flower';
@@ -161,7 +161,7 @@
       setTimeout(() => flor.remove(), duracionCaida * 1000);
     }
     
-    // 🌸 Botón: ráfaga de muchas flores
+    // 🌸 Ráfaga al pulsar botón
     function generarRafagaFlores() {
       const cantidad = 25;
       for (let i = 0; i < cantidad; i++) {
@@ -169,10 +169,10 @@
       }
     }
     
-    // 🌸 Flores cayendo SOLAS constantemente
-    setInterval(crearFlor, 600); // Una flor cada 0.6 segundos
+    // 🌸 Flores cayendo solas constantemente
+    setInterval(crearFlor, 600);
     
-    // 🎵 Música al primer clic del usuario
+    // 🎵 Iniciar música al primer clic
     document.addEventListener('click', function iniciarAudio() {
       if (musicaIniciada) return;
       
@@ -181,7 +181,8 @@
         musicaIniciada = true;
         document.querySelector('.aviso-clic').style.opacity = '0';
       }).catch(function(err) {
-        console.log('Audio no disponible:', err);
+        console.log('Error de audio:', err);
+        alert("⚠️ No se encontró el archivo de audio.\n\nComprueba que tienes un archivo llamado exactamente: audio.mp3");
       });
     });
   </script>
