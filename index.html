@@ -29,6 +29,8 @@
     .container {
       text-align: center;
       color: white;
+      max-width: 600px;
+      width: 100%;
     }
     
     h1 {
@@ -49,9 +51,8 @@
       border-radius: 15px;
       padding: 25px 35px;
       font-size: 1.2em;
-      max-width: 500px;
       backdrop-filter: blur(10px);
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
     
     .aviso-audio {
@@ -59,18 +60,21 @@
       padding: 20px 30px;
       border-radius: 12px;
       font-size: 0.95em;
-      max-width: 450px;
+      margin-bottom: 20px;
     }
     
     audio {
-      opacity: 0.7;
-      margin-top: 20px;
+      opacity: 0.85;
+      margin-top: 10px;
+      width: 100%;
+      max-width: 400px;
     }
   </style>
 </head>
 <body>
 
-  <audio id="musica" autoplay loop preload="auto">
+  <!-- Audio oculto que intenta reproducirse -->
+  <audio id="musica" loop preload="auto">
     <source src="audio.mp3" type="audio/mpeg">
     Tu navegador no soporta audio.
   
@@ -84,26 +88,28 @@
     </div>
     
     <div class="aviso-audio">
-      🎵 Si no escuchas música, activa el sonido de tu navegador o haz clic en el reproductor de abajo.
+      🎵 Si no escuchas música, haz clic en el reproductor de abajo para empezar.
     </div>
     
-    <audio controls>
+    <!-- Reproductor visible -->
+    <audio controls preload="auto">
       <source src="audio.mp3" type="audio/mpeg">
+      Tu navegador no soporta audio.
     
   </div>
 
   <script>
     const audio = document.getElementById('musica');
     
-    // Intento de reproducción automática
+    // Intentar reproducir al cargar
     document.addEventListener('DOMContentLoaded', function() {
       audio.volume = 0.7;
       audio.play().catch(function() {
-        console.log("El navegador bloqueó el audio automático — usa el reproductor visible");
+        console.log("El navegador necesita que hagas clic primero");
       });
     });
     
-    // También reproducir al primer clic del usuario en la página
+    // Reproducir al primer clic del usuario en la página
     document.addEventListener('click', function iniciarAudio() {
       audio.play().catch(function() {});
       document.removeEventListener('click', iniciarAudio);
