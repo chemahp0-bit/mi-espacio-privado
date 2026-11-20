@@ -100,7 +100,15 @@ function lanzarFlores() {
   for(let i=0; i<20; i++) setTimeout(crearFlor, i*50);
 }
 
-setInterval(crearFlor, 300);
+setInterval(function() {
+  crearFlor();
+  crearFlor();
+  crearFlor();
+  crearFlor();
+  crearFlor();
+  crearFlor();
+}, 600);
+
 
 // Activar música al primer clic
 document.addEventListener('click', iniciarAudio);
